@@ -9,18 +9,25 @@ import { Input } from "postcss";
 
 const SearchInput = () => {
 
-    const [searchQuery, setSearchQuery] = useState("")
+      const{query}= useParams()
+    const [searchQuery, setSearchQuery] = useState(query||"")
+    const Navigate = useNavigate()
+   
+
+    const searchQueryHandler = (event) => {
+        if (event.key === "Enter" && searchQuery.length > 0) {
+            Navigate(`/${searchQuery}/${1}`)
+
+            
+        }
+    }
     
-
-
-
-
     return <div id="searchBox" className="h-[46px] w-full md:w-[584px] flex items-center gap-3 px-4 border border-[#dfe1e5] rounded-3xl hover:bg-white
      hover:shadow-c hover:border-0 focus-within:shodow-c focus-within:border-0">
          
     <AiOutlineSearch size={20} color="#9aa0a6"/>
         <input type="text" onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyUp={(e) => setSearchQuery(e.target.value)}
+            onKeyUp={searchQueryHandler}
             value={searchQuery}
               
             className=" grow outline-0 text-black/[0.87]"
